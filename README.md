@@ -20,6 +20,45 @@
 
 ## Examples
 
+
+### - flyingpandas.merge()
+
+* If you've used Stata in the past and are now using Pandas, chances are you probably misse some of the functionality and frankly some of the safety nets. `flyingpandas.merge()` is a more conservative version of `pandas.merge()` which includes more explcit merge specifications (such as pre conditions expressing the uniqueness of the key variables in each dataframe). i.e. if you expect the merge to be one to one, then the mandatory first parameter, `mergetype` should be set to `'1:1'` For example:
+
+		frame_1 = pd.DataFrame({'A': [1, 2, 3, 4, 5, 6, 7],
+		                        'B': [10, 20, 30, 40, 50, 60, 70],
+		                        'C': ['This', 'program', 'will',
+		                              'work', 'some', 'day', '!']})
+		
+		frame_2 = pd.DataFrame({'A': [1, 2, 3, 4, 5, 6, 8],
+		                        'B': [10, 20, 30, 40, 50, 60, 80],
+		                        'D': ['Everyone', 'hates', 'debugging',
+		                              '!', 'It', 'is', 'terrible']})
+	
+	    df = merge('1:1', frame_2, frame_1, on=['A', 'B'], how='left')
+	    print df
+				
+		----------------------------------------
+		Merge Statistics (left  1:1)
+		On: ['A', 'B']/['A', 'B']
+		            Count
+		both            6
+		left_only       1
+		right_only      0
+		
+		Rows of   left dataframe: 7
+		Rows of  right dataframe: 7
+		Rows of merged dataframe: 7
+		
+		merge time: (seconds)
+		0.064
+		----------------------------------------
+
+For full functionality, see the doc string.
+
+
+### - flyingpandas.ExcelWriter().to_excel()
+
 `flyingpandas.to_excel` is just like `pandas.DataFrame.to_excel`. Except that you can make things really pretty really quickly.
 
 For example. I made this with `pandas.to_excel`:
@@ -35,6 +74,7 @@ like this:
 	writer.close()
 	
 and I made this with `flyingpandas.to_excel`:
+
 ![pandas_to_excel](imgs_for_readme/flyingpandas_to_excel.png)
 
 like this:

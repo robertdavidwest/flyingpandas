@@ -1,9 +1,10 @@
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 # ----------------------------------------------------------------------
 # Classes
 
-from flyingpandas import ExcelWriter
+from _flyingpandas import ExcelWriter
+from _stata_merge import merge
 
 # ----------------------------------------------------------------------
 # Sub Modules
